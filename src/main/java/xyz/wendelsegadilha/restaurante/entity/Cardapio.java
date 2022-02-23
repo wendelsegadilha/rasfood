@@ -19,6 +19,9 @@ public class Cardapio {
     @Column(name = "data_de_registro")
     private LocalDateTime dataDeRegistro = LocalDateTime.now();
 
+    @ManyToOne
+    private Categoria categoria;
+
     public Cardapio() {
     }
 
