@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 
 public class PratoDao {
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public PratoDao(EntityManager entityManager){
         this.entityManager = entityManager;
@@ -14,7 +14,6 @@ public class PratoDao {
 
     public void cadastrar(Prato prato){
         this.entityManager.persist(prato);
-        System.out.println("Entidade cadastrada: " + prato.toString());
     }
 
     public Prato consultar(Integer id){

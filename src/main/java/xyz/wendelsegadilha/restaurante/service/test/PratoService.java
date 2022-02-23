@@ -16,12 +16,30 @@ public class PratoService {
         lasanha.setDisponivel(true);
         lasanha.setValor(BigDecimal.valueOf(12.56));
 
+        Prato macarronada = new Prato();
+        macarronada.setNome("Macarronada de frango");
+        macarronada.setDescricao("Macarronada de frango com queijo e molho picante");
+        macarronada.setDisponivel(true);
+        macarronada.setValor(BigDecimal.valueOf(15.90));
+
         EntityManager entityManager = JPAUtil.getEntityManager();
         PratoDao pratoDao = new PratoDao(entityManager);
         entityManager.getTransaction().begin();
+
         pratoDao.cadastrar(lasanha);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        entityManager.flush();
+
+        pratoDao.cadastrar(macarronada);
+        entityManager.flush();
+        System.out.println("Prato consultado: " + pratoDao.consultar(2));
+
+        pratoDao.excluir(macarronada);
+        System.out.println("Prato consultado: " + pratoDao.consultar(2));
+
+        entityManager.clear();
+        lasanha.setValor(BigDecimal.valueOf(12.78));
+        pratoDao.atualizar(lasanha);
+        System.out.println("Prato consultado: " + pratoDao.consultar(1));
     }
 
 }
