@@ -4,6 +4,8 @@ import xyz.wendelsegadilha.restaurante.entity.Cardapio;
 import xyz.wendelsegadilha.restaurante.entity.Categoria;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class CategoriaDao {
 
@@ -16,8 +18,13 @@ public class CategoriaDao {
         this.entityManager.persist(categoria);
     }
 
-    public Categoria consultar(Integer id){
+    public Categoria consultarPorId(Integer id){
         return this.entityManager.find(Categoria.class, id);
+    }
+
+    public List<Categoria> consultarTodos() {
+        String sql = "SELECT c FROM Categoria c";
+        return entityManager.createQuery(sql, Categoria.class).getResultList();
     }
 
     public void atualizar(Categoria categoria){
