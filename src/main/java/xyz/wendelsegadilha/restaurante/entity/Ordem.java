@@ -3,6 +3,7 @@ package xyz.wendelsegadilha.restaurante.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "ordens")
@@ -14,17 +15,22 @@ public class Ordem {
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
     @Column(name = "data_de_cricao")
-    private LocalDateTime dataDeCricao;
+    private LocalDateTime dataDeCricao = LocalDateTime.now();
     @ManyToOne
     private Cliente cliente;
 
-    public Ordem() {
+    @ManyToMany
+    @JoinTable(
+            name = "ordens_cardapio",
+            joinColumns = @JoinColumn(name = "ordens_id"),
+            inverseJoinColumns = @JoinColumn(name = "cardapio_id")
+    )
+    private List<Cardapio> cardapioList;
 
+    public Ordem() {
     }
 
-    public Ordem(BigDecimal valorTotal, LocalDateTime dataDeCricao, Cliente cliente) {
-        this.valorTotal = valorTotal;
-        this.dataDeCricao = dataDeCricao;
+    public Ordem(Cliente cliente) {
         this.cliente = cliente;
     }
 
