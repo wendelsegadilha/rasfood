@@ -22,7 +22,7 @@ public class OrdemService {
         ClienteDao clienteDao = new ClienteDao(entityManager);
         OrdemDao ordemDao = new OrdemDao(entityManager);
 
-        Cliente wendel = new Cliente("111111111111", "Wendel", "65300855");
+        Cliente wendel = new Cliente("111111111111", "Wendel");
         Ordem ordem = new Ordem(wendel);
         ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1), 2));
 

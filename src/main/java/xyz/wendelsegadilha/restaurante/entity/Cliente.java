@@ -1,8 +1,8 @@
 package xyz.wendelsegadilha.restaurante.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -11,14 +11,20 @@ public class Cliente {
     @Id
     private String cpf;
     private String nome;
-    private String cep;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Endereco> enderecos = new ArrayList<>();
 
     public Cliente(){}
 
-    public Cliente(String cpf, String nome, String cep) {
+    public Cliente(String cpf, String nome) {
         this.cpf = cpf;
         this.nome = nome;
-        this.cep = cep;
+    }
+
+    public void addEndereco(Endereco endereco){
+        endereco.setCliente(this);
+        this.enderecos.add(endereco);
     }
 
     public String getCpf() {
@@ -37,12 +43,8 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
+    public List<Endereco> getEnderecos() {
+        return enderecos;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class Cliente {
         return "Cliente{" +
                 "cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
-                ", cep='" + cep + '\'' +
+                ", enderecos=" + enderecos +
                 '}';
     }
 }
