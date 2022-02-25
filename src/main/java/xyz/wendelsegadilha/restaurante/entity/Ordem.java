@@ -17,7 +17,7 @@ public class Ordem {
     private BigDecimal valorTotal = BigDecimal.ZERO;
     @Column(name = "data_de_cricao")
     private LocalDateTime dataDeCricao = LocalDateTime.now();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     /*

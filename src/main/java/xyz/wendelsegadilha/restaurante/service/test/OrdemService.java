@@ -1,6 +1,7 @@
 package xyz.wendelsegadilha.restaurante.service.test;
 
 import xyz.wendelsegadilha.restaurante.dao.OrdemDao;
+import xyz.wendelsegadilha.restaurante.entity.Ordem;
 import xyz.wendelsegadilha.restaurante.util.CargaDeDadosUtil;
 import xyz.wendelsegadilha.restaurante.util.JPAUtil;
 
@@ -16,10 +17,10 @@ public class OrdemService {
         CargaDeDadosUtil.cadastrarOrdensClientes(entityManager);
 
         OrdemDao ordemDao = new OrdemDao(entityManager);
-        ordemDao.consultarItensMaisVendidos().forEach(item->System.out.println("Item: "+item[0]+"\t-\tQuantidade: "+item[1]));
-
+        Ordem ordem = ordemDao.joinFetchCliente(2);
 
         entityManager.getTransaction().commit();
         entityManager.close();
+        System.out.println(ordem.getCliente().getNome());
     }
 }

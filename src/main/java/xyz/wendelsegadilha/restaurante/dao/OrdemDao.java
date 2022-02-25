@@ -1,6 +1,7 @@
 package xyz.wendelsegadilha.restaurante.dao;
 
 import xyz.wendelsegadilha.restaurante.entity.Ordem;
+import xyz.wendelsegadilha.restaurante.vo.ItensPrincipaisVO;
 
 import javax.persistence.EntityManager;
 import java.util.Collections;
@@ -31,14 +32,23 @@ public class OrdemDao {
         }
     }
 
-    public List<Object[]> consultarItensMaisVendidos(){
+    public Ordem joinFetchCliente(Integer id){
         try{
-            String jpql = "SELECT c.nome, SUM(oc.quantidade) FROM Ordem o " +
+            String sql = "SELECT o FROM Ordem o JOIN FETCH o.cliente WHERE o.id = :id";
+            return this.entityManager.createQuery(sql, Ordem.class).setParameter("id", id).getSingleResult();
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<ItensPrincipaisVO> consultarItensMaisVendidos(){
+        try{
+            String jpql = "SELECT new xyz.wendelsegadilha.restaurante.vo.ItensPrincipaisVO(c.nome, SUM(oc.quantidade)) FROM Ordem o " +
                     "JOIN OrdensCardapio oc on o.id = oc.cardapio.id " +
                     "JOIN oc.cardapio c " +
                     "GROUP BY c.nome " +
                     "ORDER BY SUM(oc.quantidade) DESC";
-            return this.entityManager.createQuery(jpql, Object[].class).getResultList();
+            return this.entityManager.createQuery(jpql, ItensPrincipaisVO.class).getResultList();
         }catch (Exception e) {
             return Collections.emptyList();
         }
