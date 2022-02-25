@@ -28,7 +28,7 @@ public class OrdemService {
 
         clienteDao.cadastrar(wendel);
         ordemDao.cadastrar(ordem);
-        System.out.println(ordem.getOrdensCardapioList());
+        System.out.println(ordem);
 
         entityManager.getTransaction().commit();
         entityManager.close();

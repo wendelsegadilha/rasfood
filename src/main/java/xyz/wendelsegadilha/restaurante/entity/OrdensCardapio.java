@@ -14,7 +14,7 @@ public class OrdensCardapio {
     private Ordem ordem;
     @ManyToOne
     private Cardapio cardapio;
-    private BigDecimal valor;
+    private BigDecimal valorDeRegistro;
     private Integer quantidade;
 
     public OrdensCardapio() {
@@ -24,7 +24,7 @@ public class OrdensCardapio {
     public OrdensCardapio(Cardapio cardapio, Integer quantidade) {
         this.cardapio = cardapio;
         this.quantidade = quantidade;
-        this.valor = cardapio.getValor();
+        this.valorDeRegistro = cardapio.getValor();
     }
 
     public Integer getId() {
@@ -51,12 +51,12 @@ public class OrdensCardapio {
         this.cardapio = cardapio;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public BigDecimal getValorDeRegistro() {
+        return valorDeRegistro;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setValorDeRegistro(BigDecimal valorDeRegistro) {
+        this.valorDeRegistro = valorDeRegistro;
     }
 
     public Integer getQuantidade() {
@@ -71,9 +71,8 @@ public class OrdensCardapio {
     public String toString() {
         return "OrdensCardapio{" +
                 "id=" + id +
-                ", ordem=" + ordem +
                 ", cardapio=" + cardapio +
-                ", valor=" + valor +
+                ", valorDeRegistro=" + valorDeRegistro +
                 ", quantidade=" + quantidade +
                 '}';
     }
