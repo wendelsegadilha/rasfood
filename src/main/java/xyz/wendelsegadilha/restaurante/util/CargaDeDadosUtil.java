@@ -91,7 +91,7 @@ public class CargaDeDadosUtil {
         tayane.addEndereco(heitorPenteado);
 
         Endereco consolacao = new Endereco("000000000","Consolacao","apto 1001","Sao Paulo","SP");
-        Cliente denise = new Cliente("111111111145","Denise Costa");
+        Cliente denise = new Cliente("111111111145","Denise Costa Lopes");
         denise.addEndereco(consolacao);
 
         Endereco nacoesUnidas = new Endereco("000000000","NacoesUnidas","casa 27","Sao Paulo","SP");

@@ -1,5 +1,6 @@
 package xyz.wendelsegadilha.restaurante.service.test;
 
+import xyz.wendelsegadilha.restaurante.dao.ClienteDao;
 import xyz.wendelsegadilha.restaurante.dao.OrdemDao;
 import xyz.wendelsegadilha.restaurante.entity.Ordem;
 import xyz.wendelsegadilha.restaurante.util.CargaDeDadosUtil;
@@ -16,11 +17,10 @@ public class OrdemService {
         CargaDeDadosUtil.cadastrarClientes(entityManager);
         CargaDeDadosUtil.cadastrarOrdensClientes(entityManager);
 
-        OrdemDao ordemDao = new OrdemDao(entityManager);
-        Ordem ordem = ordemDao.joinFetchCliente(2);
+        ClienteDao clienteDao = new ClienteDao(entityManager);
+        System.out.println(clienteDao.consultarPorNome("Lopes"));
 
         entityManager.getTransaction().commit();
         entityManager.close();
-        System.out.println(ordem.getCliente().getNome());
     }
 }
