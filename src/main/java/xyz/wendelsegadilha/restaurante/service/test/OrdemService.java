@@ -25,6 +25,7 @@ public class OrdemService {
         Cliente wendel = new Cliente("111111111111", "Wendel");
         Ordem ordem = new Ordem(wendel);
         ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1), 2));
+        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2), 3));
 
         clienteDao.cadastrar(wendel);
         ordemDao.cadastrar(ordem);
