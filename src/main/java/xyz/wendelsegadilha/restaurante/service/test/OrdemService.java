@@ -1,11 +1,6 @@
 package xyz.wendelsegadilha.restaurante.service.test;
 
-import xyz.wendelsegadilha.restaurante.dao.CardapioDao;
-import xyz.wendelsegadilha.restaurante.dao.ClienteDao;
 import xyz.wendelsegadilha.restaurante.dao.OrdemDao;
-import xyz.wendelsegadilha.restaurante.entity.Cliente;
-import xyz.wendelsegadilha.restaurante.entity.Ordem;
-import xyz.wendelsegadilha.restaurante.entity.OrdensCardapio;
 import xyz.wendelsegadilha.restaurante.util.CargaDeDadosUtil;
 import xyz.wendelsegadilha.restaurante.util.JPAUtil;
 
@@ -17,19 +12,12 @@ public class OrdemService {
         entityManager.getTransaction().begin();
         CargaDeDadosUtil.cadastrarCategoria(entityManager);
         CargaDeDadosUtil.cadastrarProdutoCardapio(entityManager);
+        CargaDeDadosUtil.cadastrarClientes(entityManager);
+        CargaDeDadosUtil.cadastrarOrdensClientes(entityManager);
 
-        CardapioDao cardapioDao = new CardapioDao(entityManager);
-        ClienteDao clienteDao = new ClienteDao(entityManager);
         OrdemDao ordemDao = new OrdemDao(entityManager);
+        ordemDao.consultarItensMaisVendidos().forEach(item->System.out.println("Item: "+item[0]+"\t-\tQuantidade: "+item[1]));
 
-        Cliente wendel = new Cliente("111111111111", "Wendel");
-        Ordem ordem = new Ordem(wendel);
-        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1), 2));
-        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2), 3));
-
-        clienteDao.cadastrar(wendel);
-        ordemDao.cadastrar(ordem);
-        System.out.println(ordem);
 
         entityManager.getTransaction().commit();
         entityManager.close();
