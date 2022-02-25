@@ -24,10 +24,11 @@ public class OrdemService {
 
         Cliente wendel = new Cliente("111111111111", "Wendel", "65300855");
         Ordem ordem = new Ordem(wendel);
-        ordem.addOrdensCardapio(new OrdensCardapio(ordem, cardapioDao.consultarPorId(1), 2));
+        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1), 2));
 
         clienteDao.cadastrar(wendel);
         ordemDao.cadastrar(ordem);
+        System.out.println(ordem.getOrdensCardapioList());
 
         entityManager.getTransaction().commit();
         entityManager.close();
